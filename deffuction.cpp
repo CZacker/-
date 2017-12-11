@@ -10,28 +10,28 @@ using namespace std;
 
 const char NUM[] = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.' ,'x'};
 const char OPERATOR[] = { '+', '-', '*', '/' };
-double precision=0.1;//¾«Ï¸¶È
+double precision=0.1;//ç²¾ç»†åº¦
 
-int n;//º¯Êı¸öÊı£¨1~3£©
+int n;//å‡½æ•°ä¸ªæ•°ï¼ˆ1~3ï¼‰
 string expsp;
 
 //===============================================================
-//ÊÇ·ñÓĞ¿Ì¶È
+//æ˜¯å¦æœ‰åˆ»åº¦
 bool scale=true;
-//µ¥Î»³¤¶È
+//å•ä½é•¿åº¦
 double per=1;
-//¹öÖá¾«ÃÜ¶È
+//æ»šè½´ç²¾å¯†åº¦
 double wh=0.05;
-//¿í¸ß£º
+//å®½é«˜ï¼š
 int width=1000;
 int height=600;
-//Ô­µã£º
+//åŸç‚¹ï¼š
 int xx=100;
 int yy=100;
-//×÷ÓÃÓò£º
+//ä½œç”¨åŸŸï¼š
 double left=-100;
 double right=130;
-//Ëõ·Å±È£¨sxÎªºáÏòÀ­Éì±¶Êı£¬syÎª×İÏòÀ­Éì±¶Êı£©£º
+//ç¼©æ”¾æ¯”ï¼ˆsxä¸ºæ¨ªå‘æ‹‰ä¼¸å€æ•°ï¼Œsyä¸ºçºµå‘æ‹‰ä¼¸å€æ•°ï¼‰ï¼š
 double sx=1,sy=1;
 
 float x;
@@ -54,7 +54,7 @@ struct Unit {
     Unit *next; //Next unit
 };
 
-class Node{
+class Node{   //define a class
 public:
     Node(int p,
          char o,
@@ -85,7 +85,7 @@ private:
     int expression;
     double number;
 };
-double Node::getValue() {
+double Node::getValue() {   //define a function in class 
     if (isExpression())
     {
         
@@ -158,7 +158,7 @@ Unit * Analyze(string exp) {
         {
             if (i!=expLen-1)
             {
-                cout << "[Error]: '=' is not at the end of the expression!" << endl;
+                cout << "'=' is not at the end of the expression!" << endl;
             }
             break;
         }
@@ -180,7 +180,7 @@ Unit * Analyze(string exp) {
         {
             if (head == NULL)
             {
-                cout << "[Error] Operator can't at the beginning of the expression!" << endl;
+                cout << "Operator can't at the beginning of the expression!" << endl;
             }
             Unit *temp = p; //Current Unit
             int addPri;
@@ -325,14 +325,14 @@ float exps(float x1,string exp)
     }
     return resu;
 }
-//*********************************************************************************************************************»­Í¼²¿·Ö
+//*********************************************************************************************************************ç”»å›¾éƒ¨åˆ†
 void cls()
 {
     clearrectangle(0,0,width,height);
     setfillstyle(WHITE);
     bar(0,0,width,height);
 }
-//»­×ø±êÖá
+//ç”»åæ ‡è½´
 void zbz(int color)
 {
     setcolor(color);
@@ -360,7 +360,7 @@ void zbz(int color)
         }
     }
 }
-//»­×ø±êÖáÉÏµÄµã
+//ç”»åæ ‡è½´ä¸Šçš„ç‚¹
 void dian(double x,double y)
 {
     int rx=xx+(int)(x*sx);
@@ -368,49 +368,49 @@ void dian(double x,double y)
     putpixel(rx,ry,BLACK);
     moveto(rx,ry);
 }
-void xian(double x,double y)//´Óµ±Ç°µãÏòÄ¿±êµã»­Ïß
+void xian(double x,double y)//ä»å½“å‰ç‚¹å‘ç›®æ ‡ç‚¹ç”»çº¿
 {
     int rx=xx+(int)(x*sx);
     int ry=height-yy-(int)(y*sy);
     lineto(rx,ry);
     moveto(rx,ry);
 }
-//ÉèÖÃ·Ö±æÂÊ
+//è®¾ç½®åˆ†è¾¨ç‡
 void setsize(int w,int h)
 {
     width=w;height=h;
 }
-//ÉèÖÃ×ø±êÔ­µã
+//è®¾ç½®åæ ‡åŸç‚¹
 void setyuan(int yuanx,int yuany)
 {
     xx=yuanx;yy=yuany;
 }
-//ÉèÖÃËõ·Å±È
+//è®¾ç½®ç¼©æ”¾æ¯”
 void setsuo(double a,double b)
 {
     sx=a;sy=b;
 }
-void paint();//¸Ãº¯Êı¾ßÌå¶¨ÒåÓÚÖ÷ÎÄ¼ş,ºÍfromtoº¯ÊıµÄÁ½¸ö²ÎÊı¾ùÖ¸×óÓÒ±ß½ç
+void paint();//è¯¥å‡½æ•°å…·ä½“å®šä¹‰äºä¸»æ–‡ä»¶,å’Œfromtoå‡½æ•°çš„ä¸¤ä¸ªå‚æ•°å‡æŒ‡å·¦å³è¾¹ç•Œ
 void catchcase()
 {
     MOUSEMSG m; 
     setbkcolor(RGB(0,0,0));
     setbkmode(TRANSPARENT);
     RECT r = {0, 0, 480,300};
-    drawtext("Çëµã»÷Êó±ê×ó¼üÒÔÈ·¶¨×ø±êÔ­µã\n\n¹ö¶¯¹öÂÖµ÷ÕûÕûÌåËõ·Å±È,Í¬Ê±°´ÏÂctrlµ÷Õû×İÏòËõ·Å±È\n\n°´ÏÂshiftµ÷ÕûºáÏòËõ·Å±È,ÓÒ¼ü·µ»Ø,ÖĞ¼ü½ØÆÁ",&r,DT_WORDBREAK);
+    drawtext("è¯·ç‚¹å‡»é¼ æ ‡å·¦é”®ä»¥ç¡®å®šåæ ‡åŸç‚¹\n\næ»šåŠ¨æ»šè½®è°ƒæ•´æ•´ä½“ç¼©æ”¾æ¯”,åŒæ—¶æŒ‰ä¸‹ctrlè°ƒæ•´çºµå‘ç¼©æ”¾æ¯”\n\næŒ‰ä¸‹shiftè°ƒæ•´æ¨ªå‘ç¼©æ”¾æ¯”,å³é”®è¿”å›,ä¸­é”®æˆªå±",&r,DT_WORDBREAK);
     while(true)
     {
         m = GetMouseMsg();
         switch(m.uMsg)
         {
-            case WM_LBUTTONDOWN:// Èç¹ûµã×ó¼ü
+            case WM_LBUTTONDOWN:// å¦‚æœç‚¹å·¦é”®
                 setyuan(m.x,height-m.y);
                 cls();
                 paint();
                 break;
-            case WM_RBUTTONUP:// °´Êó±êÓÒ¼üÍË³ö³ÌĞò
+            case WM_RBUTTONUP:// æŒ‰é¼ æ ‡å³é”®é€€å‡ºç¨‹åº
                 return;
-            case WM_MOUSEWHEEL://¹öÖá¸Ä±äËõ·Å±È
+            case WM_MOUSEWHEEL://æ»šè½´æ”¹å˜ç¼©æ”¾æ¯”
                 if(m.mkCtrl)
                 {
                     sy+=wh*m.wheel;
@@ -427,9 +427,9 @@ void catchcase()
                 cls();
                 paint();
                 break;
-            case WM_MBUTTONDOWN://ÖĞ¼ü°´ÏÂ½ØÍ¼
+            case WM_MBUTTONDOWN://ä¸­é”®æŒ‰ä¸‹æˆªå›¾
                 system("mkdir pictures");
-                saveimage(".\\pictures\\²¶»ñ.bmp");
+                saveimage(".\\pictures\\æ•è·.bmp");
                 break;
         }
     }
@@ -456,7 +456,7 @@ void paint()
 int main() {
     float result1=0;
 	char s[20]; 
-	InputBox(s,20,"ÇëÊäÈëĞèÒª»æÖÆµÄº¯Êı");
+	InputBox(s,20,"è¯·è¾“å…¥éœ€è¦ç»˜åˆ¶çš„å‡½æ•°");
 	string &assign(const char *s);
 	expsp=s;
     initgraph(width,height);
